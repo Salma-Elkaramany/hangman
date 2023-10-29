@@ -14,21 +14,24 @@ class Hangman:
         
         if guess in self.word:
             print(f"Good guess! {guess} is in the word.")
-            self.update_word_guessed(guess)
+            self._update_word_guessed(guess)
         else:
-            self.num_lives -= 1
-            print(f"Sorry, {guess} is not in the word.")
-            print(f"You have {self.num_lives} lives left.")
-            if self.num_lives == 0:
-                self.end_game()
-
-    def update_word_guessed(self, guess):
+            self._reduce_lives(guess)
+    
+    def _update_word_guessed(self, guess):
         for i, letter in enumerate(self.word):
             if letter == guess:
                 self.word_guessed[i] = guess
         self.num_letters -= 1
+    
+    def _reduce_lives(self, guess):
+        self.num_lives -= 1
+        print(f"Sorry, {guess} is not in the word.")
+        print(f"You have {self.num_lives} lives left.")
+        if self.num_lives == 0:
+            self._end_game()
 
-    def end_game(self):
+    def _end_game(self):
         if self.num_letters == 0:
             print(f"Congratulations! You guessed the word: {self.word}")
         else:
@@ -37,13 +40,13 @@ class Hangman:
     def ask_for_input(self):
         while self.num_lives > 0 and self.num_letters > 0:
             guess = input("Guess a letter: ")
-            if self.is_valid_guess(guess):
+            if self._is_valid_guess(guess):
                 self.check_guess(guess)
                 self.list_of_guesses.append(guess)
             else:
                 print("Invalid input. Please enter a single alphabetical character.")
 
-    def is_valid_guess(self, guess):
+    def _is_valid_guess(self, guess):
         return len(guess) == 1 and guess.isalpha()
 
 def play_game(word_list):
@@ -52,14 +55,14 @@ def play_game(word_list):
     
     while True:
         if game.num_lives == 0:
-            print("You lost!")
+            print('You lost!')
             break
-        elif game.num_letters > 0:
+        if game.num_letters > 0:
             game.ask_for_input()
         else:
-            print("Congratulations. You won the game!")
+            print('Congratulations. You won the game!')
             break
 
 if __name__ == "__main__":
-    word_list = ["apple", "banana", "cherry", "date", "elderberry"]
+    word_list = ["apple", "banana", "strawberry", "kiwi", "mango"]
     play_game(word_list)
