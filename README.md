@@ -17,9 +17,15 @@ This project is a simple implementation of the classic Hangman game in Python. T
 
 Follow the on-screen instructions to play the game. Guess letters to uncover the hidden word and try to guess the word within the given number of lives.
 
+## How to Play
+- The game starts with a random word from a predefined list.
+- You have a limited number of lives to guess the word.
+- Enter a single letter as your guess. If the letter is in the word, it will be revealed. If not, you lose a life.
+- Continue guessing until you guess the entire word or run out of lives.
+
 ## File Structure
 
-- `milestone_4.py`: The main Hangman game script.
+- `milestone_5.py`: The main Hangman game script.
 - `README.md`: The documentation you are currently reading.
 
 ## License
