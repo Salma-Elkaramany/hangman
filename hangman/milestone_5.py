@@ -21,19 +21,19 @@ class Hangman:
             print(f"You have {self.num_lives} lives left.")
             if self.num_lives == 0:
                 self.end_game()
-    
+
     def update_word_guessed(self, guess):
         for i, letter in enumerate(self.word):
             if letter == guess:
                 self.word_guessed[i] = guess
         self.num_letters -= 1
-    
+
     def end_game(self):
         if self.num_letters == 0:
             print(f"Congratulations! You guessed the word: {self.word}")
         else:
             print(f"Game over! You ran out of lives. The word was: {self.word}")
-    
+
     def ask_for_input(self):
         while self.num_lives > 0 and self.num_letters > 0:
             guess = input("Guess a letter: ")
@@ -42,12 +42,24 @@ class Hangman:
                 self.list_of_guesses.append(guess)
             else:
                 print("Invalid input. Please enter a single alphabetical character.")
-    
+
     def is_valid_guess(self, guess):
         return len(guess) == 1 and guess.isalpha()
 
-# Example usage
+def play_game(word_list):
+    num_lives = 5
+    game = Hangman(word_list, num_lives)
+    
+    while True:
+        if game.num_lives == 0:
+            print("You lost!")
+            break
+        elif game.num_letters > 0:
+            game.ask_for_input()
+        else:
+            print("Congratulations. You won the game!")
+            break
+
 if __name__ == "__main__":
     word_list = ["apple", "banana", "cherry", "date", "elderberry"]
-    hangman_game = Hangman(word_list)
-    hangman_game.ask_for_input()
+    play_game(word_list)
